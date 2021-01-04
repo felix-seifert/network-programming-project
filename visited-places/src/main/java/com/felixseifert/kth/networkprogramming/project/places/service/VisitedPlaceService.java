@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface VisitedPlaceService {
 
-    List<VisitedPlace> getAllVisitedPlaces();
+    List<VisitedPlace> getVisitedPlacesByUserId(String userId);
 
-    VisitedPlace getVisitedPlaceById(Long id);
+    VisitedPlace getVisitedPlaceByIdAndUserId(Long id, String userId);
 
-    VisitedPlace postVisitedPlace(@Valid VisitedPlace visitedPlace);
+    VisitedPlace postVisitedPlace(@Valid VisitedPlace visitedPlace, String userId);
 
-    VisitedPlace putVisitedPlace(Long id, @Valid VisitedPlace visitedPlace);
+    VisitedPlace putVisitedPlace(Long id, @Valid VisitedPlace visitedPlace, String userId);
 
-    void deleteVisitedPlace(Long id);
+    void deleteVisitedPlace(Long id, String userId);
 }
