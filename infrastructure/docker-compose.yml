@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+
+  postgres:
+    image: postgres:alpine
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres/init-databases.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      POSTGRES_PASSWORD: admin
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak
+    ports:
+      - "8180:8080"
+      - "8543:8443"
+    depends_on:
+      - postgres
+    volumes:
+      - ./keycloak/:/tmp/
+    command: -Dkeycloak.profile.feature.upload_scripts=enabled
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak_database
+      DB_SCHEMA: public
+      DB_USER: keycloak
+      DB_PASSWORD: keycloak
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      KEYCLOAK_IMPORT: /tmp/realm-network-programming-project.json -Dkeycloak.profile.feature.upload_scripts=enabled
