@@ -21,6 +21,7 @@ public class VisitedPlaceServiceImpl implements VisitedPlaceService {
     }
 
     @Override
+    @Transactional
     public VisitedPlace postVisitedPlace(VisitedPlace visitedPlace) {
         visitedPlace.persist();
         return visitedPlace;

@@ -43,7 +43,7 @@ public class VisitedPlaceResource {
     }
 
     @DELETE
-    @Path("{id")
+    @Path("{id}")
     public void deleteVisitedPlace(@PathParam Long id) {
         visitedPlaceService.deleteVisitedPlace(id);
     }
