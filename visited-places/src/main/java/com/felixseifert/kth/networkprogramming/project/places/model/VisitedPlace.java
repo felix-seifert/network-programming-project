@@ -1,6 +1,7 @@
 package com.felixseifert.kth.networkprogramming.project.places.model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "visited_places")
+@RegisterForReflection
 public class VisitedPlace extends PanacheEntity {
 
     @NotBlank(message = "City '${validatedValue}' of visited place must not be blank")
