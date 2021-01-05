@@ -4,7 +4,6 @@ import com.felixseifert.kth.networkprogramming.project.places.model.Role;
 import com.felixseifert.kth.networkprogramming.project.places.model.VisitedPlace;
 import com.felixseifert.kth.networkprogramming.project.places.service.VisitedPlaceService;
 import org.eclipse.microprofile.jwt.JsonWebToken;
-import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
@@ -31,7 +30,7 @@ public class VisitedPlaceResource {
 
     @GET
     @Path("/{id}")
-    public VisitedPlace getVisitedPlaceById(@PathParam Long id) {
+    public VisitedPlace getVisitedPlaceById(@PathParam("id") Long id) {
         return visitedPlaceService.getVisitedPlaceByIdAndUserId(id, getUserIdFromToken());
     }
 
@@ -42,13 +41,13 @@ public class VisitedPlaceResource {
 
     @PUT
     @Path("/{id}")
-    public VisitedPlace putVisitedPlace(@PathParam Long id, VisitedPlace visitedPlace) {
+    public VisitedPlace putVisitedPlace(@PathParam("id") Long id, VisitedPlace visitedPlace) {
         return visitedPlaceService.putVisitedPlace(id, visitedPlace, getUserIdFromToken());
     }
 
     @DELETE
     @Path("{id}")
-    public void deleteVisitedPlace(@PathParam Long id) {
+    public void deleteVisitedPlace(@PathParam("id") Long id) {
         visitedPlaceService.deleteVisitedPlace(id, getUserIdFromToken());
     }
 
