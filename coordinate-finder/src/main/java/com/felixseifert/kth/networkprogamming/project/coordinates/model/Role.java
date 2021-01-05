@@ -1,4 +1,4 @@
-package com.felixseifert.kth.networkprogramming.project.places.model;
+package com.felixseifert.kth.networkprogamming.project.coordinates.model;
 
 public class Role {
     // Roles are managed in Keycloak. Keep this file consistent and check other services for their roles!
