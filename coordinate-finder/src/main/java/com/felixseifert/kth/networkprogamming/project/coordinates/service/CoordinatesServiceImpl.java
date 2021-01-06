@@ -6,7 +6,10 @@ import com.felixseifert.kth.networkprogamming.project.coordinates.model.Coordina
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -16,6 +19,7 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Optional;
+import java.util.Set;
 
 @ApplicationScoped
 public class CoordinatesServiceImpl implements CoordinatesService {
@@ -24,6 +28,9 @@ public class CoordinatesServiceImpl implements CoordinatesService {
 
     @ConfigProperty(name = "geocoding.key")
     String geocodingApiKey;
+
+    @Inject
+    Validator validator;
 
     @Override
     @Transactional
@@ -56,6 +63,10 @@ public class CoordinatesServiceImpl implements CoordinatesService {
         coordinates.longitude = firstItem.get("position").get("lng").asDouble();
         coordinates.latitude = firstItem.get("position").get("lat").asDouble();
 
+        Set<ConstraintViolation<Coordinates>> violations = validator.validate(coordinates);
+        if(!violations.isEmpty()) {
+            throw new NoCoordinatesFoundException(violations.toString());
+        }
         coordinates.persist();
 
         return coordinates;
