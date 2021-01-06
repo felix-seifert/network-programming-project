@@ -2,6 +2,7 @@ package com.felixseifert.kth.networkprogramming.project.places.resource;
 
 import com.felixseifert.kth.networkprogramming.project.places.model.Role;
 import com.felixseifert.kth.networkprogramming.project.places.model.VisitedPlace;
+import com.felixseifert.kth.networkprogramming.project.places.model.VisitedPlaceWithCoordinates;
 import com.felixseifert.kth.networkprogramming.project.places.service.VisitedPlaceService;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
@@ -28,25 +29,28 @@ public class VisitedPlaceResource {
 
     @GET
     public Response getAllVisitedPlaces() {
-        List<VisitedPlace> visitedPlaceList = visitedPlaceService.getVisitedPlacesByUserId(getUserIdFromToken());
-        if(visitedPlaceList.isEmpty()) {
+        List<VisitedPlaceWithCoordinates> placesWithCoordinates = visitedPlaceService
+                .getVisitedPlacesByUserId(getUserIdFromToken());
+
+        if(placesWithCoordinates.isEmpty()) {
             return Response
                     .status(Response.Status.NO_CONTENT)
-                    .entity(visitedPlaceList).build();
+                    .entity(placesWithCoordinates).build();
         }
         return Response
                 .status(Response.Status.OK)
-                .entity(visitedPlaceList).build();
+                .entity(placesWithCoordinates).build();
     }
 
     @GET
     @Path("/{id}")
     public Response getVisitedPlaceById(@PathParam("id") Long id) {
         try {
-            VisitedPlace visitedPlace = visitedPlaceService.getVisitedPlaceByIdAndUserId(id, getUserIdFromToken());
+            VisitedPlaceWithCoordinates placeWithCoordinates = visitedPlaceService
+                    .getVisitedPlaceByIdAndUserId(id, getUserIdFromToken());
             return Response
                     .status(Response.Status.OK)
-                    .entity(visitedPlace).build();
+                    .entity(placeWithCoordinates).build();
         } catch(NoResultException e) {
             return Response
                     .status(Response.Status.NOT_FOUND)

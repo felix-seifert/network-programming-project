@@ -1,15 +1,16 @@
 package com.felixseifert.kth.networkprogramming.project.places.service;
 
 import com.felixseifert.kth.networkprogramming.project.places.model.VisitedPlace;
+import com.felixseifert.kth.networkprogramming.project.places.model.VisitedPlaceWithCoordinates;
 
 import javax.validation.Valid;
 import java.util.List;
 
 public interface VisitedPlaceService {
 
-    List<VisitedPlace> getVisitedPlacesByUserId(String userId);
+    List<VisitedPlaceWithCoordinates> getVisitedPlacesByUserId(String userId);
 
-    VisitedPlace getVisitedPlaceByIdAndUserId(Long id, String userId);
+    VisitedPlaceWithCoordinates getVisitedPlaceByIdAndUserId(Long id, String userId);
 
     VisitedPlace postVisitedPlace(@Valid VisitedPlace visitedPlace, String userId);
 
