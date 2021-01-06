@@ -7,4 +7,6 @@ import java.io.IOException;
 public interface CoordinatesService {
 
     Coordinates getCoordinates(String city, String countryCode) throws IOException, InterruptedException;
+
+    // Todo: Allow to get coordinates in batch mode
 }

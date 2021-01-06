@@ -13,6 +13,7 @@ import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Optional;
 
@@ -22,7 +23,7 @@ public class CoordinatesServiceImpl implements CoordinatesService {
     private static final String GEOCODING_RESOURCE = "https://geocode.search.hereapi.com/v1/geocode";
 
     @ConfigProperty(name = "geocoding.key")
-    private String geocodingApiKey;
+    String geocodingApiKey;
 
     @Override
     @Transactional
@@ -65,7 +66,7 @@ public class CoordinatesServiceImpl implements CoordinatesService {
 
         HttpClient httpClient = HttpClient.newHttpClient();
 
-        String encodedQuery = URLEncoder.encode(city + ", " + countryCode, "UTF-8");
+        String encodedQuery = URLEncoder.encode(city + ", " + countryCode, StandardCharsets.UTF_8);
         String requestUri = GEOCODING_RESOURCE + "?apiKey=" + geocodingApiKey + "&q=" + encodedQuery;
 
         HttpRequest geocodingRequest = HttpRequest.newBuilder().GET().uri(URI.create(requestUri))
