@@ -5,6 +5,7 @@ import { withStyles } from "@material-ui/styles";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {Redirect} from "react-router-dom";
+import {createPlace} from "../rest/VisitedPlacesService";
 toast.configure();
 
 const styles = () => ({
@@ -21,7 +22,7 @@ class CreateFinancialRequestScreen extends PureComponent {
             countryCode: null,
             fromDate: null,
             toDate: null,
-            visitorId: null
+            visitorId: 'soid'
         };
     }
     handleTextFieldChange = (event) => {
@@ -30,18 +31,17 @@ class CreateFinancialRequestScreen extends PureComponent {
     };
 
     handleCreate = () => {
-        // createFinancialRequest(this.state)
-        //     .then(() => {
-        //         toast.success("Requested created successfully");
-        //     })
-        //     .catch(() => {
-        //         toast.error("Something  went wrong!");
-        //     });
+        createPlace(this.state)
+            .then(() => {
+                toast.success("Requested created successfully");
+            })
+            .catch(() => {
+                toast.error("Something  went wrong!");
+            });
     };
 
     render() {
-        if(localStorage.getItem('role')===null){
-            console.log(localStorage.getItem('role'))
+        if(localStorage.getItem('token')===null){
             return <Redirect to='/'/>;
         }
 
@@ -91,15 +91,7 @@ class CreateFinancialRequestScreen extends PureComponent {
                                 shrink: true,
                             }}
                         />
-                        <TextField
-                            className={classes.textField}
-                            fullWidth={true}
-                            id="reason"
-                            label="Reason"
-                            multiline
-                            variant="outlined"
-                            onChange={this.handleTextFieldChange}
-                        />
+
                         <Button
                             className={classes.textField}
                             variant="contained"

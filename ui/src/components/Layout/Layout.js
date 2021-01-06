@@ -72,7 +72,7 @@ const Layout = () => {
   }
     return (
     <div>
-      <AppBar position="sticky" style={{background: 'red'}}>
+      <AppBar position="sticky" style={{background: '#008080'}}>
         <Toolbar>
           <IconButton
             edge="start"
