@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const createPlace = (requestBody) => {
-  const url = `http://localhost:8081/api/v1/places`;
+  const url = `http://${process.env.REACT_APP_VISITED_PLACE_BASE_URL}/api/v1/places`;
   let config = {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -11,7 +11,7 @@ export const createPlace = (requestBody) => {
 };
 
 export const getPlaces = () => {
-  const url = `http://localhost:8081/api/v1/places`;
+  const url = `http://${process.env.REACT_APP_VISITED_PLACE_BASE_URL}/api/v1/places`;
   let config = {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -22,7 +22,7 @@ export const getPlaces = () => {
 };
 
 export const deletePlace = (id) => {
-  const url = `http://localhost:8081/api/v1/places/${id}`;
+  const url = `http://${process.env.REACT_APP_VISITED_PLACE_BASE_URL}/api/v1/places/${id}`;
   let config = {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
