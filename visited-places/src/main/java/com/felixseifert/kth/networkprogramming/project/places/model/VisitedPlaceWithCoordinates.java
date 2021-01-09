@@ -7,6 +7,8 @@ import java.time.LocalDate;
 @RegisterForReflection
 public class VisitedPlaceWithCoordinates {
 
+    public Long id;
+
     public String city;
 
     public String countryCode;
@@ -20,6 +22,7 @@ public class VisitedPlaceWithCoordinates {
     public Double latitude;
 
     public void copyFromVisitedPlace(VisitedPlace visitedPlace) {
+        this.id = visitedPlace.id;
         this.city = visitedPlace.city;
         this.countryCode = visitedPlace.countryCode;
         this.fromDate = visitedPlace.fromDate;
