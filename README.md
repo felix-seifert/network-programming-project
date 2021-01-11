@@ -24,14 +24,25 @@ application. To run both container, you would have to run the `docker-compose.ym
 docker-compose up -d
 ```
 
+### PostgreSQL
+
 According to the database per service pattern, each service receives its own database within the PostgreSQL container. 
 The credentials of the databases for the different microservices can be seen in the 
-[`init-databases.sql`](infrastructure/postgres/init-databases.sql) file.
+[`init-databases.sql`](infrastructure/postgres/init-databases.sql) file. To access the different databases, use the 
+following Docker command and adapt it to your needs.
+
+```
+sudo docker exec -it postgres psql -d <database> -U <user> -W
+```
+
+### Keycloak
 
 The Keycloak application is automatically initialised with the settings from the file 
 [`realm-network-programming-project.json`](infrastructure/keycloak/realm-network-programming-project.json). Currently, 
 all functions of the backend are available for the role `USER`. Upon start-up, the user `alex` with the password `alex` 
 and the role `USER` is created automatically.
+
+The admin console of Keycloak is available under [http://localhost:8180/auth/admin/](http://localhost:8180/auth/admin/).
 
 ## Microservices
 
