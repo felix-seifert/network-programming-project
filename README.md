@@ -55,6 +55,46 @@ To start the React frontend, have a look at the [description within the frontend
 
 ## Test
 
+### Full Test
+
+To spin up the full application and use it in the web-browser, run the following steps:
+
+1. Start the infrastructure with Docker Compose.
+    ```
+    cd infrastructure && \
+    sudo docker-compose up -d && \
+    cd ..
+    ```
+
+2. Insert an [API key for the HERE Geocoding and Search API](https://developer.here.com/sign-up) in the 
+   [`applications.properties`](coordinate-finder/src/main/resources/application.properties) file of the microservice 
+   `coordinate-finder`.
+   
+3. Start the microservice `coordinate-finder` in the Quarkus DEV mode.
+    ```
+    cd coordinate-finder && \
+    ./mvnw compile quarkus:dev
+    ```
+
+4. Start the microservice `visited-places` in the Quarkus DEV mode.
+    ```
+    cd visited-places && \
+    ./mvnw compile quarkus:dev &&
+    ```
+
+5. Run `npm install` int the frontend folder, create a `.env` file with the necessary content and start the app in 
+   DEV mode.
+   ```
+   cd frontend && \
+   npm install && \
+   echo "REACT_APP_MAPBOX_ACCESS_TOKEN='pk.eyJ1Ijoic2Fuc2thcjk1IiwiYSI6ImNraml5dWo5ZDJtZDkydnNjdWtscXZxNm0ifQ.cb8o0SXu2SJY-aqquDCwqw'
+   REACT_APP_AUTH_SERVER_OIDC_TOKEN_URL='http://localhost:8180/auth/realms/network-programming-project/protocol/openid-connect/token'
+   REACT_APP_VISITED_PLACE_URL='http://localhost:8081/api/v1/places'" > .env && \
+   npm start
+   ```
+
+### Terminal Test
+
 To test the identity framework with its authentication and authorisation, start the infrastructure and start the 
 microservices [`visited-places`](visited-places) and [`coordinate-finder`](coordinate-finder). Then, query Keycloak to 
 receive a valid access token (and store it for simplicity). 
