@@ -1,6 +1,7 @@
 .marker {
     background-image: url('../../images/marker.png');
     background-size: cover;
+    opacity: 0.7;
     width: 100px;
     height: 100px;
     border-radius: 50%;
