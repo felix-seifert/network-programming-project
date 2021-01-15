@@ -13,7 +13,16 @@ there.
 
 ## Architecture
 
-TBD
+The architecture for a local desktop setup is shown in the following image. How to start the full application, have 
+a look under the section [Full Test](#full-test).
+
+![Architecture](architecture.png)
+
+Users call the `frontend` where they have to identify. The Keycloak application then authenticates them and returns 
+a token. With this token, the `frontend` taks to `visited-places` to operate CRUD operations on the places this user 
+visited. If places have to be returned, `coordinate-finder` provides the coordinates for these places. 
+`coordinate-finder` checks whether they are in its own database. If the coordinates are not stored in the database, 
+the [HERE Geocoding and Search API is approached](https://developer.here.com/documentation/geocoding-search-api/dev_guide/index.html).
 
 ## Infrastructure
 
