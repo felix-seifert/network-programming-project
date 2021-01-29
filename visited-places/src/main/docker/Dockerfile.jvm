@@ -7,18 +7,18 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.jvm -t quarkus/visited-places-jvm .
+# docker build -f src/main/docker/Dockerfile.jvm -t seifertfelix/visited-places-jvm .
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 8080:8080 quarkus/visited-places-jvm
+# docker run -i --rm -p 8081:8081 seifertfelix/visited-places-jvm
 #
 # If you want to include the debug port into your docker image
-# you will have to expose the debug port (default 5005) like this :  EXPOSE 8080 5050
+# you will have to expose the debug port (default 5005) like this :  EXPOSE 8081 5050
 #
 # Then run the container using :
 #
-# docker run -i --rm -p 8080:8080 -p 5005:5005 -e JAVA_ENABLE_DEBUG="true" quarkus/visited-places-jvm
+# docker run -i --rm -p 8081:8081 -p 5005:5005 -e JAVA_ENABLE_DEBUG="true" seifertfelix/visited-places-jvm
 #
 ###
 FROM registry.access.redhat.com/ubi8/ubi-minimal:8.3 
@@ -45,7 +45,7 @@ ENV JAVA_OPTIONS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jb
 COPY target/lib/* /deployments/lib/
 COPY target/*-runner.jar /deployments/app.jar
 
-EXPOSE 8080
+EXPOSE 8081
 USER 1001
 
 ENTRYPOINT [ "/deployments/run-java.sh" ]

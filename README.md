@@ -57,8 +57,9 @@ The admin console of Keycloak is available under [http://localhost:8180/auth/adm
 
 The microservices of the backend of the MSA can currently be started only separately. For starting a service, go to its 
 directory and start it either in the Quarkus development mode, like a normal Java application or compile it to a native 
-executable. For more information on how to run Quarkus applications, please consult the 
-[Quarkus page about Maven tooling](https://quarkus.io/guides/maven-tooling.html).
+executable. Alternatively, a microservice can also be started in a Docker container. The startup instructions are all 
+described within the microservice directories. For more information on how to run Quarkus applications, please consult 
+the [Quarkus page about Maven tooling](https://quarkus.io/guides/maven-tooling.html).
 
 To start the React frontend, have a look at the [description within the frontend folder](frontend).
 

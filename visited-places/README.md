@@ -47,3 +47,39 @@ You can then execute the native executable with: `./target/visited-places-<versi
 
 If you want to learn more about building native executables, please consult 
 [https://quarkus.io/guides/maven-tooling.html](https://quarkus.io/guides/maven-tooling.html).
+
+## Dockerising native executable
+
+To make a native executable platform independent, build a Docker image of a Linux native executable.
+
+If you do not use a Linux operating system, build a native executable for Linux first.
+
+```shell
+./mvnw package -Dnative -Dquarkus.native.container-build=true
+```
+
+Then, you can build a Docker image of this Linux native executable.
+
+```shell
+docker build -f src/main/docker/Dockerfile.native -t seifertfelix/visited-places .
+```
+
+The process of creating a native executable and creating a Docker image with it can be combined in a single Maven
+command.
+
+```shell
+./mvnw package -Pnative -Dquarkus.native.container-build=true -Dquarkus.container-image.build=true
+```
+
+* `-Dquarkus.native.container-build=true` instructs Maven to build an executable for a container even though the OS is
+  not Linux.
+* `-Dquarkus.container-image.build=true` instructs the extension `quarkus-container-image-docker` to create a Docker
+  image.
+
+To run the containerised microservice, the microservice still needs to contact the two containers `postgres` and
+`keycloak`. Adding the microservice container to the network `host` is the easiest workaround without changing the
+settings of the application.
+
+```shell
+docker run -p 8082:8082 --network host seifertfelix/visited-places
+```

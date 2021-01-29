@@ -7,18 +7,18 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.fast-jar -t quarkus/visited-places-fast-jar .
+# docker build -f src/main/docker/Dockerfile.fast-jar -t seifertfelix/visited-places-fast-jar .
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 8080:8080 quarkus/visited-places-fast-jar
+# docker run -i --rm -p 8081:8081 seifertfelix/visited-places-fast-jar
 #
 # If you want to include the debug port into your docker image
-# you will have to expose the debug port (default 5005) like this :  EXPOSE 8080 5050
+# you will have to expose the debug port (default 5005) like this :  EXPOSE 8081 5050
 #
 # Then run the container using :
 #
-# docker run -i --rm -p 8080:8080 -p 5005:5005 -e JAVA_ENABLE_DEBUG="true" quarkus/visited-places-fast-jar
+# docker run -i --rm -p 8081:8081 -p 5005:5005 -e JAVA_ENABLE_DEBUG="true" seifertfelix/visited-places-fast-jar
 #
 ###
 FROM registry.access.redhat.com/ubi8/ubi-minimal:8.3 
@@ -48,7 +48,7 @@ COPY --chown=1001 target/quarkus-app/*.jar /deployments/
 COPY --chown=1001 target/quarkus-app/app/ /deployments/app/
 COPY --chown=1001 target/quarkus-app/quarkus/ /deployments/quarkus/
 
-EXPOSE 8080
+EXPOSE 8081
 USER 1001
 
 ENTRYPOINT [ "/deployments/run-java.sh" ]

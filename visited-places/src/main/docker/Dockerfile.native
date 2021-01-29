@@ -7,11 +7,11 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.native -t quarkus/visited-places .
+# docker build -f src/main/docker/Dockerfile.native -t seifertfelix/visited-places .
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 8080:8080 quarkus/visited-places
+# docker run -i --rm -p 8081:8081 seifertfelix/visited-places
 #
 ###
 FROM registry.access.redhat.com/ubi8/ubi-minimal:8.3
@@ -21,7 +21,7 @@ RUN chown 1001 /work \
     && chown 1001:root /work
 COPY --chown=1001:root target/*-runner /work/application
 
-EXPOSE 8080
+EXPOSE 8081
 USER 1001
 
 CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
